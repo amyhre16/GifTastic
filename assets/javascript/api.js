@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var topics = ["Will Ferrell", "Will Smith", "Julia Louis-Dreyfus", "Tom Cruise", "Steve Carell", "John Cleese", "Amy Poehler"];
+	var topics = ["Will Ferrell", "Will Smith", "Julia Louis-Dreyfus", "Tom Cruise", "Steve Carell", "John Cleese", "Amy Poehler", "Dana Carvey"];
 	
 	createButtons();
 
@@ -29,16 +29,29 @@ $(document).ready(function() {
 				method: "GET"})
 			.done(function(response) {
 				for (var i = 0; i < response.data.length; i++) {
-					console.log(response);
+					console.log(response.data[i]);
 					var gifDiv = $('<div class="gif">');
 					var rating = "<p>Rating: " + response.data[i].rating + "</p>";
 					console.log(rating);
-					var gif = "<img src='" + response.data[i].images.fixed_height.url + "' alt='" + actor + "'>";
+					var gif = "<img class='gifImg' src='" + response.data[i].images.fixed_height.url
+						 + "' alt='" + actor + "' data-state='animated' data-animated='" + response.data[i].images.fixed_height.url 
+						 + "' data-still='" + response.data[i].images.fixed_height_still.url + "'>";
 					gifDiv.append(rating + gif);
 					$('#giphyHolder').prepend(gifDiv);
 				}
 			});
 
+	});
+
+	$('.gifImg').on('click', function() {
+		if ($(this).attr('data-state') == "animated") {
+			$(this).attr('data-state', 'still');
+			$(this).attr('src', $(this).data('still'));
+		}
+		else {
+			$(this).attr('data-state', 'animated');
+			$(this).attr('src', $(this).data('animated'));
+		}
 	});
 
 	/*
