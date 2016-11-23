@@ -9,6 +9,7 @@ $(document).ready(function() {
 		"Dana Carvey",
 		"Chris Pratt",
 		"Wayne Knight",
+		"James Earl Jones",
 		"Alfonso Ribeiro"];
 	
 	createButtons();
